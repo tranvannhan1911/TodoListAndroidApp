@@ -28,13 +28,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @NonNull
     @Override
     public RecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        return null;
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(R.layout.item, parent, false);
+        ViewHolder viewHolder = new ViewHolder(view);
+        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerAdapter.ViewHolder holder, int position) {
-
+        Task task = tasks.get(position);
+        holder.txtName.setText(task.getName());
+        holder.txtMucDo.setText(task.getPriority());
+        holder.txtDate.setText(""+task.getDate());
     }
 
     @Override
@@ -43,10 +48,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-//
+        private TextView txtName;
+        private TextView txtMucDo;
+        private TextView txtDate;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            txtName = itemView.findViewById(R.id.txt_name);
+            txtMucDo = itemView.findViewById(R.id.txt_mucdo);
+            txtDate = itemView.findViewById(R.id.txt_ngay);
         }
     }
 

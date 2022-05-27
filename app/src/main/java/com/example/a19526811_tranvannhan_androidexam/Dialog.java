@@ -64,17 +64,12 @@ public class Dialog extends android.app.Dialog {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("tasks");
 
-        System.out.println(myRef);
 
         edtName = findViewById(R.id.edt_name);
         radioGroup = findViewById(R.id.radioGroup);
         edtDate = findViewById(R.id.edt_ngay);
         Button btnAdd = findViewById(R.id.btn_add);
 
-//        if(task != null){
-//            edtName.setText(task.getName());
-//
-//        }
 
 
         btnAdd.setOnClickListener(v -> {
@@ -84,8 +79,6 @@ public class Dialog extends android.app.Dialog {
             String date = edtDate.getText().toString();
             int selectedId = radioGroup.getCheckedRadioButtonId();
             RadioButton radioButton = (RadioButton) findViewById(selectedId);
-            Toast.makeText(context,
-                    radioButton.getText(), Toast.LENGTH_SHORT).show();
 
             Task task = new Task(myRef.push().getKey(), name, radioButton.getText().toString(), date);
             taskDAO.insert(task);
