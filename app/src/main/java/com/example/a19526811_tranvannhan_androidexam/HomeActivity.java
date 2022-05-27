@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
@@ -30,6 +31,8 @@ public class HomeActivity extends AppCompatActivity {
 
     private FirebaseDatabase database;
     private DatabaseReference myRef;
+    private TaskDAO taskDAO;
+    private RecyclerAdapter recyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         RecyclerView recycler = findViewById(R.id.recycler);
-        RecyclerAdapter recyclerAdapter
+        recyclerAdapter
                 = new RecyclerAdapter(this);
         recycler.setAdapter(recyclerAdapter);
         recycler.setLayoutManager(new LinearLayoutManager(this));
@@ -45,7 +48,7 @@ public class HomeActivity extends AppCompatActivity {
         SqlDatabase sqlDatabase = Room.databaseBuilder(this, SqlDatabase.class, "database")
                 .allowMainThreadQueries()
                 .build();
-        TaskDAO taskDAO = sqlDatabase.getTaskDAO();
+        taskDAO = sqlDatabase.getTaskDAO();
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("books");
@@ -55,25 +58,26 @@ public class HomeActivity extends AppCompatActivity {
             Dialog dialog = new Dialog(HomeActivity.this);
         });
 
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<Task> lst = new ArrayList<>();
-
-                for(DataSnapshot child : snapshot.getChildren()){
-                    Log.d("key", child.getKey());
-
-                    lst.add(child.getValue(Task.class));
-                }
-
-                recyclerAdapter.setTasks(lst);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        loadData();
+//        myRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                List<Task> lst = new ArrayList<>();
+//
+//                for(DataSnapshot child : snapshot.getChildren()){
+//                    Log.d("key", child.getKey());
+//
+//                    lst.add(child.getValue(Task.class));
+//                }
+//
+//                recyclerAdapter.setTasks(lst);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
         ImageButton imgBtnSync = findViewById(R.id.btn_sync);
         imgBtnSync.setOnClickListener(v -> {
@@ -94,5 +98,13 @@ public class HomeActivity extends AppCompatActivity {
 
             Toast.makeText(HomeActivity.this, "Đồng bộ thành công", Toast.LENGTH_SHORT).show();
         });
+
+        Intent intent = new Intent(this, SyncDatabaseService.class);
+        startService(intent);
+    }
+
+    public void loadData(){
+        List<Task> tasks = taskDAO.findAll();
+        recyclerAdapter.setTasks(tasks);
     }
 }

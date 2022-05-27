@@ -9,6 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.19526811_TranVanNhan_AndroidExam">
+        <service
+            android:name=".SyncDatabaseService"
+            android:exported="false"></service>
+
         <activity
             android:name=".HomeActivity"
             android:exported="false" />

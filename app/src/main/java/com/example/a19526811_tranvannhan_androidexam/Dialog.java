@@ -82,6 +82,9 @@ public class Dialog extends android.app.Dialog {
 
             Task task = new Task(myRef.push().getKey(), name, radioButton.getText().toString(), date);
             taskDAO.insert(task);
+            ((HomeActivity)context).loadData();
+            Toast.makeText(context, "Thêm công việc thành công", Toast.LENGTH_SHORT).show();
+            dismiss();
         });
 
 
