@@ -21,6 +21,9 @@ import com.example.a19526811_tranvannhan_androidexam.entity.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 public class Dialog extends android.app.Dialog {
     private Task task;
     private Context context;
@@ -77,6 +80,10 @@ public class Dialog extends android.app.Dialog {
 
             String name = edtName.getText().toString();
             String date = edtDate.getText().toString();
+            if(date.equals("")){
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                date = simpleDateFormat.format(new Date());
+            }
             int selectedId = radioGroup.getCheckedRadioButtonId();
             RadioButton radioButton = (RadioButton) findViewById(selectedId);
 

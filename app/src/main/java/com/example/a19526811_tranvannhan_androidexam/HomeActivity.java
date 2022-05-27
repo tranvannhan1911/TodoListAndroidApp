@@ -59,25 +59,6 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         loadData();
-//        myRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                List<Task> lst = new ArrayList<>();
-//
-//                for(DataSnapshot child : snapshot.getChildren()){
-//                    Log.d("key", child.getKey());
-//
-//                    lst.add(child.getValue(Task.class));
-//                }
-//
-//                recyclerAdapter.setTasks(lst);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
 
         ImageButton imgBtnSync = findViewById(R.id.btn_sync);
         imgBtnSync.setOnClickListener(v -> {
