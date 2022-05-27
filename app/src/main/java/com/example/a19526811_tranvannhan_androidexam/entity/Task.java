@@ -13,12 +13,12 @@ public class Task {
     private String id;
     private String name;
     private String priority;
-    private Date date;
+    private String date;
 
     public Task() {
     }
 
-    public Task(String id, String name, String priority, Date date) {
+    public Task(String id, String name, String priority, String date) {
         this.id = id;
         this.name = name;
         this.priority = priority;
@@ -49,11 +49,11 @@ public class Task {
         this.priority = priority;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

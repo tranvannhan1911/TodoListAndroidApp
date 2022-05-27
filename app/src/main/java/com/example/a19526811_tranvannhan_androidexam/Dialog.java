@@ -8,10 +8,15 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.room.Room;
 
+import com.example.a19526811_tranvannhan_androidexam.dao.TaskDAO;
+import com.example.a19526811_tranvannhan_androidexam.database.SqlDatabase;
 import com.example.a19526811_tranvannhan_androidexam.entity.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -22,6 +27,8 @@ public class Dialog extends android.app.Dialog {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private EditText edtName;
+    private RadioGroup radioGroup;
+    private EditText edtDate;
 
     public Dialog(@NonNull Context context) {
         super(context);
@@ -49,6 +56,10 @@ public class Dialog extends android.app.Dialog {
         lp.gravity = Gravity.CENTER;
         getWindow().setAttributes(lp);
 
+        SqlDatabase sqlDatabase = Room.databaseBuilder(context, SqlDatabase.class, "database")
+                .allowMainThreadQueries()
+                .build();
+        TaskDAO taskDAO = sqlDatabase.getTaskDAO();
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("tasks");
@@ -56,16 +67,28 @@ public class Dialog extends android.app.Dialog {
         System.out.println(myRef);
 
         edtName = findViewById(R.id.edt_name);
+        radioGroup = findViewById(R.id.radioGroup);
+        edtDate = findViewById(R.id.edt_ngay);
         Button btnAdd = findViewById(R.id.btn_add);
 
-        if(task != null){
-            edtName.setText(task.getName());
-
-        }
+//        if(task != null){
+//            edtName.setText(task.getName());
+//
+//        }
 
 
         btnAdd.setOnClickListener(v -> {
             if(!check())return;
+
+            String name = edtName.getText().toString();
+            String date = edtDate.getText().toString();
+            int selectedId = radioGroup.getCheckedRadioButtonId();
+            RadioButton radioButton = (RadioButton) findViewById(selectedId);
+            Toast.makeText(context,
+                    radioButton.getText(), Toast.LENGTH_SHORT).show();
+
+            Task task = new Task(myRef.push().getKey(), name, radioButton.getText().toString(), date);
+            taskDAO.insert(task);
         });
 
 

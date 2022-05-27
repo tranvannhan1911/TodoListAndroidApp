@@ -36,10 +36,13 @@ public class HomeActivity extends AppCompatActivity {
         recycler.setAdapter(recyclerAdapter);
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
-        ImageButton imgBtnAdd = findViewById(R.id.btn_add);
-
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("books");
+
+        ImageButton imgBtnAdd = findViewById(R.id.btn_add);
+        imgBtnAdd.setOnClickListener(v -> {
+            Dialog dialog = new Dialog(HomeActivity.this);
+        });
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
