@@ -74,7 +74,7 @@ public class SyncDatabaseService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        SqlDatabase sqlDatabase = Room.databaseBuilder(this, SqlDatabase.class, "mydb")
+        SqlDatabase sqlDatabase = Room.databaseBuilder(this, SqlDatabase.class, "database")
                 .allowMainThreadQueries()
                 .build();
         TaskDAO taskDAO = sqlDatabase.getTaskDAO();
@@ -85,6 +85,7 @@ public class SyncDatabaseService extends IntentService {
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//                sync database
                 Task task = snapshot.getValue(Task.class);
                 if(taskDAO.checkExits(task.getId()) == false)
                     taskDAO.insert(task);
