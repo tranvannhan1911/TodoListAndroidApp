@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "70868116522",
+    "firebase_url": "https://androidexam-25332-default-rtdb.firebaseio.com",
+    "project_id": "androidexam-25332",
+    "storage_bucket": "androidexam-25332.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:70868116522:android:e767b0e2eec0cc1eaf0f53",
+        "android_client_info": {
+          "package_name": "com.example.a19526811_tranvannhan_androidexam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "70868116522-gsosp4h83g3hfahroqbpm0l0jqfctnvo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB93gPpLxvoSjcvnA2NRe-iQQw0OSsSQh0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "70868116522-gsosp4h83g3hfahroqbpm0l0jqfctnvo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
