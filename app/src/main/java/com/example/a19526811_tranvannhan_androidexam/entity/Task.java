@@ -1,8 +1,15 @@
 package com.example.a19526811_tranvannhan_androidexam.entity;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.sql.Date;
 
+@Entity(tableName = "tasks")
 public class Task {
+    @PrimaryKey
+    @NonNull
     private String id;
     private String name;
     private String priority;
